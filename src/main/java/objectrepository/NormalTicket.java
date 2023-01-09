@@ -22,7 +22,7 @@ public class NormalTicket
 	@FindBy(xpath="//a[@href='view-normal-ticket.php?viewid=162']")
 	private WebElement View;
 	
-	@FindBy(xpath="//a[@href='manage-normal-ticket.php?id=162&del=delete']")
+	@FindBy(xpath="")
 	private WebElement Delete;
 	
 	

@@ -3,8 +3,10 @@ package com.tourism.zts.modules;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import com.tourism.zts.generic.BaseClass;
 import com.tourism.zts.generic.ReadData_Excel;
 import com.tourism.zts.generic.ReadData_PropFile;
 import com.tourism.zts.generic.TestDataCreation;
@@ -14,30 +16,19 @@ import objectrepository.HomePage;
 import objectrepository.LoginPage;
 import objectrepository.ManageTypeTicket;
 
-public class TC_03_ManageTypeTicketTest 
+public class TC_03_ManageTypeTicketTest extends BaseClass
 {
-	WebDriver driver;
+	
 	@Test
 	public void manageticket() throws Exception
 	{
-		driver=new ChromeDriver();
-		WebDriverUtilities web=new WebDriverUtilities(driver);
-
-		ReadData_PropFile r = new ReadData_PropFile();
+		
 		ReadData_Excel rde=new ReadData_Excel();
 		TestDataCreation tc=new TestDataCreation();
 
-		String url=r.readdatafrompropfile("url");
-		String username=r.readdatafrompropfile("un");
-		String password=r.readdatafrompropfile("pwd");
+		
 		String price1=rde.readdatafromexcel("Sheet2", 1, 0)+tc.getprice();
 
-		driver.get(url);
-		web.waitSynchro();	
-		web.maximize();
-
-		LoginPage lp=new LoginPage(driver);
-		lp.LoginApp(username, password);
 
 		Thread.sleep(3000);
 
@@ -51,23 +42,18 @@ public class TC_03_ManageTypeTicketTest
 		mt.getSubButton().click();
 		Thread.sleep(2000);
 
-		web.alertaccept();
+		driver.switchTo().alert().accept();
 		mt.getManageTypeTicket().click();
 
 		String price=driver.findElement(By.xpath("//td[.=' $ "+price1+"']")).getText();
 
 		String Actualprice= "$"+" "+price1  ;
-		if(price.equals(Actualprice))
-		{
-			System.out.println("Test Passed");
-		}
-		else
-		{
-			System.out.println("Test Failed");
-		}	
+	   Assert.assertEquals(price,Actualprice);
+		
+		
 		HomePage hm =new HomePage(driver);
 		hm.getAdmin().click();
-		hm.getLogout().click();
+		
 
 	}
 }
@@ -97,12 +83,31 @@ public class TC_03_ManageTypeTicketTest
 //driver.findElement(By.xpath("//h4[@data-toggle='dropdown']")).click();
 //driver.findElement(By.xpath("//a[.='Log Out']")).click();
 
+//driver=new ChromeDriver();
+		//WebDriverUtilities web=new WebDriverUtilities(driver);
+
+		//ReadData_PropFile r = new ReadData_PropFile();
 
 
 
+//String url=r.readdatafrompropfile("url");
+//String username=r.readdatafrompropfile("un");
+//String password=r.readdatafrompropfile("pwd");
 
 
 
+//driver.get(url);
+//web.waitSynchro();	
+//web.maximize();
 
+//LoginPage lp=new LoginPage(driver);
+//lp.LoginApp(username, password);
 
-
+//if(price.equals(Actualprice))
+//	{
+//		System.out.println("Test Passed");
+//	}
+//	else
+//	{
+//		System.out.println("Test Failed");
+//	}

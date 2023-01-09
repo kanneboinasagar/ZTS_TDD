@@ -3,11 +3,11 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="com.tourism.xmlpractice.ReadDataFromJsonFile">
+      <class name="com.tourism.xmlpractice.ExcelOutputData">
         <methods>
-          <include name="readDataFromJsonFile"/>
+          <include name="output"/>
         </methods>
-      </class> <!-- com.tourism.xmlpractice.ReadDataFromJsonFile -->
+      </class> <!-- com.tourism.xmlpractice.ExcelOutputData -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

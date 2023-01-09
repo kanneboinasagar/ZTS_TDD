@@ -4,8 +4,10 @@ package com.tourism.zts.modules;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import com.tourism.zts.generic.BaseClass;
 import com.tourism.zts.generic.ReadData_Excel;
 import com.tourism.zts.generic.ReadData_PropFile;
 import com.tourism.zts.generic.TestDataCreation;
@@ -15,36 +17,18 @@ import objectrepository.HomePage;
 import objectrepository.LoginPage;
 import objectrepository.NormalTicket;
 
-public class TC_04_NormalTicketTest 
+public class TC_04_NormalTicketTest extends BaseClass
 {    
-	WebDriver driver;
+	
 	@Test
 	public void normalticket() throws Exception
 	{
-		driver=new ChromeDriver();
-		WebDriverUtilities web=new WebDriverUtilities(driver);
-
-
-
-		ReadData_PropFile r=new ReadData_PropFile();
-		String url=r.readdatafrompropfile("url");
-		String username=r.readdatafrompropfile("un");
-		String password=r.readdatafrompropfile("pwd");
 
 		ReadData_Excel rde=new ReadData_Excel();
 		TestDataCreation td=new TestDataCreation();
 		String visitorname=rde.readdatafromexcel("Sheet3", 1, 0);
 		String noOfAdult=rde.readdatafromexcel("Sheet3", 1, 1)+td.getNoOfAdult();
 		String noOfChild=rde.readdatafromexcel("Sheet3", 1, 2)+td.getNoOfChild();
-
-		driver.get(url);
-
-		web.waitSynchro();
-		web.maximize();
-
-		LoginPage lp=new LoginPage(driver);
-		lp.LoginApp(username, password);
-
 		HomePage hm=new HomePage(driver);
 		hm.getNormalTicket().click();
 		hm.getAddTicket().click();
@@ -56,7 +40,7 @@ public class TC_04_NormalTicketTest
 		Thread.sleep(3000);
 		nt.getSubButton().click();
 
-		web.alertaccept();
+		driver.switchTo().alert().accept();
 
 		hm.getNormalTicket().click();
 		hm.getManageTicket().click();
@@ -65,17 +49,11 @@ public class TC_04_NormalTicketTest
 		String name=driver.findElement(By.xpath("//tr[@data-expanded='true']//td[.='"+visitorname+"']")).getText();
 
 		String Actualname=visitorname;
-		if(name.equalsIgnoreCase(Actualname))
-		{
-			System.out.println("Test Passed");
-		}
-		else
-		{
-			System.out.println("Test Failed");
-		}
+		Assert.assertEquals(name, Actualname);
+		
 		Thread.sleep(2000);
 		hm.getAdmin().click();
-		hm.getLogout().click();
+		
 	}	
 
 
@@ -100,3 +78,11 @@ public class TC_04_NormalTicketTest
 //driver.findElement(By.xpath("//a[@href='manage-normal-ticket.php']")).click();
 //driver.findElement(By.xpath("//h4[@data-toggle='dropdown']")).click();
 //driver.findElement(By.xpath("//a[.='Log Out']")).click();
+//if(name.equalsIgnoreCase(Actualname))
+//{
+//	System.out.println("Test Passed");
+//}
+//else
+//{
+//	System.out.println("Test Failed");
+//}

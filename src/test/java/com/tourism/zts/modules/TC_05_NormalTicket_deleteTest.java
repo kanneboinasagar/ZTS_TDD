@@ -1,5 +1,6 @@
 package com.tourism.zts.modules;
 
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import com.tourism.zts.generic.ReadData_Excel;
@@ -10,6 +11,8 @@ import com.tourism.zts.generic.WebDriverUtilities;
 import objectrepository.HomePage;
 import objectrepository.LoginPage;
 import objectrepository.NormalTicket;
+
+import static org.testng.Assert.assertTrue;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -58,15 +61,19 @@ public class TC_05_NormalTicket_deleteTest
 		hm.getNormalTicket().click();
 		hm.getManageTicket().click();
 		Thread.sleep(3000);
+		
 		nt.getDelete().click(); 
-		web.alertaccept();
+		Thread.sleep(2000);
+		//web.alertaccept();
 
-		web.alertaccept();
+		//web.alertaccept();
 
-
+   
 		String name=driver.findElement(By.xpath("//td[contains(.,'"+visitorname+"')]")).getText();		
 		String actualname=visitorname;
-		try {
+		//Assert.assertEquals(name, actualname);
+		
+		
 			if(name.equalsIgnoreCase(actualname))
 			{
 				System.out.println("Test Passed");
@@ -75,11 +82,11 @@ public class TC_05_NormalTicket_deleteTest
 			{
 				System.out.println("Test Failed");
 			}
-		}
-		catch(Exception e)
-		{
-			System.out.println("Exception is handled");
-		}
+		
+//		catch(Exception e)
+//		{
+//			System.out.println("Exception is handled");
+//		}
 
 		hm.getAdmin().click();;
 		hm.getLogout().click();
